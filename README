@@ -1,6 +1,3 @@
-In cadrul arhivei exista 3 fisiere sursa (functiiLDI.c, functiiTH.c, main.c) 
-si 2 fisiere header (headerLDI.h, headerTH.h).
-
 In fisierul functiiLDI.c sunt implementate functii asupra listei generica
 dublu inlantuita circulara:
 
