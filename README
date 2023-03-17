@@ -1,0 +1,93 @@
+Tema 1 SD - Frant Madalina 315CB
+
+In cadrul arhivei exista 3 fisiere sursa (functiiLDI.c, functiiTH.c, main.c) 
+si 2 fisiere header (headerLDI.h, headerTH.h).
+
+In fisierul functiiLDI.c sunt implementate functii asupra listei generica
+dublu inlantuita circulara:
+
+Functia AlocCelula aloca spatiu pentru o celula si, in cazul alocarii reusite,
+completeaza campul info al acesteia cu valoarea primita ca parametru. Functia
+returneaza adresa celulei create, respectiv NULL.
+
+Functia DistrugeL elimina toate elementele din lista (eliberandu-se spatiul
+ocupat de acestea), astfel: cat timp lista nu este vida, se elimina primul
+element din lista (se foloseste functia ElimInc). Exista si cazul special al 
+existentei unui singur element in lista. Daca lista este vida, nu se intra in
+while (nu trebuie distrus nimic).
+
+Functia AfisareL afiseaza in fisier valoarea Value a fiecarui element al listei
+folosind o functie de tip TFAfi, respectiv "VIDA" daca lista este vida.
+
+Functia Ins insereaza un element in tabela hash. In cazul aparitiei coliziunii
+(diferite chei cu acelasi hash), inserarea intr-un bucket se face ordonat dupa
+Key. Functia foloseste pentru comparare o functie TFCmp care returneaza numarul
+elementului ce trebuie introdus mai intai. Se disting mai multe cazuri: Daca
+inserarea se face in lista vida (nu exista coliziune), altfel exista cazurile:
+inserare la inceput de lista, inserare intre 2 elemente sau inserare dupa 
+ultimul element. In acest mod sunt verificate toate cazurile posibile. Daca 
+lista contine un singur element si noul element trebuie inserat la inceput se 
+intra in primul if (de dupa conditia ce verifica daca lista este vida), daca 
+noul element trebuie  inserat la sfarsit se intra in ultimul if, neintrand in 
+for.
+
+Functia ElimInc elimina prima celula din lista: se actualizeaza inceputul 
+listei, se refac legaturile si se elimina spatiul ocupat de element si de 
+celula.
+
+Functia Elim elimina celula de la adresa p: se refac legaturile apoi se 
+elibereaza spatiul ocupat de element si de celula.
+
+In fisierul functiiTH.c sunt implementate functii asupra tabelei hash:
+
+Functia IniTH initializeaza o tabela hash: aloca spatiu pentru tabela hash,
+pentru vector si completeaza campurile M si fh (in cazul alocarilor reusite).
+Functia returneaza tabela creata, respectiv NULL.
+
+Functia DistrTH distruge tabela hash parcurgand fiecare lista, distrugand-o
+(daca exista), apeland functia DistrugeL. Dupa distrugerea tuturor listelor 
+se elibereaza spatiul alocat pentru vector si pentru tabela hash.
+
+Functia AfiTH afiseaza toate valorile Value din tabela hash pentru fiecare
+bucket nevid, apeland functia AfisareL.
+
+Functia ExistaTH verifica existenta unui element in tabela hash, folosind o 
+functie de comparare de tip TFCmp.
+
+Functia InsTH insereaza un element in tabela hash daca acesta nu exista deja
+(folosind functia Ins). Daca exista deja se elimina spatiul alocat elementului.
+
+Functia ExtrTH elimina un element din tabela hash, parcurgandu-se fiecare
+lista. Se disting mai multe cazuri: Daca lista este vida se continua cautarea 
+in urmatoarea lista. Daca lista contine un singur element: daca elementul este 
+cel ce trebuie eliminat, se elimina, lista devenind vida, altfel cautarea 
+continua in urmatoarea lista. Daca lista contine cel putin 2 elemente: daca 
+trebuie eliminat primul element din lista se apeleaza functia ElimInc, altfel
+se apeleaza functia Elim.
+
+Functia Get cauta elementul cu cheia Key in tabela hash cu ajutorul unei
+functii de tip TFCmp si returneaza, in cazul in care exista, valoarea Value
+corespunzatoare, in caz contrar intoarce NULL.
+
+In main.c sunt implementate functiile:
+
+Functia codHash calculeaza restul impartirii sumei caracterelor ce fac parte
+din Key la numarul maxim de bucket-uri ce pot fi stocate in tabela hash.
+
+Functia afi_IP afiseaza valoarea Value a unui element.
+
+Functia elib_DNS elibereaza spatiul alocat unui element de tip DNS.
+
+Functia cmp compara 2 elemente de tip DNS, returnand 1 daca sunt egale, 
+0 in caz contrar. Functia va fi folosita in cadrul functiei ExistaTH.
+
+Functia cmp_key compara cheia unui element de tip DNS cu o cheie primita ca
+al doilea parametru, returnand 1 daca sunt egale, 0 in caz contrar. Functia
+va fi folosita in cadrul functiilor Get si ExtrTH.
+
+Functia cmp_ord, folosita in cadrul inserarii ordonate, compara cheile celor 
+2 elemente de tip DNS primite ca parametri si returneaza numarul elementului
+ce trebuie inserat mai intai.
+
+In main se citeste din fisier linie cu linie si in functie de primul cuvant
+de pe linie se realizeaza operatia corespunzatoare.
